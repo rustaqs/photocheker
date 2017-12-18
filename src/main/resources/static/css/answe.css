@@ -1,0 +1,26 @@
+.occ, .occ2 {
+    width: 85%;
+}
+.zvzd {
+    font-size: 12px;
+}
+.zvHr {
+    color: red;
+    font-size: 16px;
+}
+.rep{
+    display: none;
+}
+html, body {
+    height: 100%;
+    overflow: auto;
+}
+.tyQ {
+    padding: 5px;
+    margin: 20px 0px 20px 0px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #b2f8a8;
+    border-color: #b2f8a8;
+    color: #1b6c1b;
+}
