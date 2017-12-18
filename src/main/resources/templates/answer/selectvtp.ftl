@@ -1,6 +1,7 @@
 <#ftl encoding="UTF-8"/>
 <#import "/spring.ftl" as spring/>
 <#include "../header.ftl">
+<#if Session.user.role==4>
  <div class="container">
      <br>
      <div class="text-center lead">
@@ -185,22 +186,22 @@
                         </div>
                     </div>
                     <div>
-                        <div class="row">
-                            <h5>
+                        <div class="row occ2">
+                            <h5 class="ques">
                                 Комментарий о работе за день:</h5>
                             <div class="col-md-12 ">
-                                <textarea class="inputComm" style="width: 100%"></textarea>
+                                <textarea class="inputComm answ2" style="width: 100%"></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <h5>
+                        <div class="row occ2">
+                            <h5 class="ques">
                                 Темы/цели и планы для самостоятельного развития:
                             </h5>
-                            <div class="col-md-12">
-                                <select class="selectpicker form-control" multiple data-max-options="2">
+                            <div class="col-md-12 answ2">
+                                <select class="selectpicker form-control tem" multiple data-max-options="2">
                                     <optgroup label="Знание документов">
                                         <option>История(1-2 вопрса)</option>
-                                        <option>Миссия, Видение и Ценности</option>
+                                        <option>Миссия, Видение и Ценности</option>дщ
                                         <option>Стандарты работы ТП</option>
                                     </optgroup>
                                     <optgroup label="Продукция, свойства и преимущества">
@@ -283,12 +284,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <h5>
+                        <div class="row occ2">
+                            <h5 class="ques">
                                 Темы следующего обучения:
                             </h5>
-                            <div class="col-md-12">
-                                <select class="selectpicker form-control" multiple data-max-options="2">
+                            <div class="col-md-12 answ2">
+                                <select class="selectpicker form-control tem" multiple data-max-options="2">
                                     <optgroup label="Знание документов">
                                         <option>История(1-2 вопрса)</option>
                                         <option>Миссия, Видение и Ценности</option>
@@ -386,6 +387,9 @@
         </div>
     </div>
 </div>
+<#else>
+<h4>Недостаточно прав, вернитесь на главную</h4>
+</#if>
 <#include "../footer.ftl">
 
 

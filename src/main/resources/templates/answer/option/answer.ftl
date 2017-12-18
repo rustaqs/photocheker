@@ -715,10 +715,10 @@
                     </ol>
                 </div>
             </form>
-            <div align="center" style="margin: 20px 20px 20px 20px">
+            <div align="center" style="margin: 20px 20px 20px 20px"><a href="#top">
                 <button  type="button" class="btn btn-primary btn-block btnSAV" onclick="saved()"
-                        style="width: 250px; height: 30px"><a href="#top">Следующаяя ТТ (Сохранить)</a>
-                </button>
+                        style="width: 250px; height: 30px">Следующаяя ТТ (Сохранить)
+                </button></a>
 
                 <p></p>
                 <button type="button" class="btn btn-primary btn-block" onclick="block()" style="width: 250px">

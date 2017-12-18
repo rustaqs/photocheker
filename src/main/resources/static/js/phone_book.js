@@ -29,6 +29,7 @@ $(function () {
     $('#selVtp').change(function () {
             $('.endVtp').css("display", "none")
             $('.timeS').text(time())
+            $('.selectpicker').selectpicker('refresh');
         $('.grade').text('')
             $('.answVtp').empty()
             $.post('answer/answer', {id: 1, fio: $('#selVtp option:selected').text()})
@@ -168,13 +169,15 @@ function saved(p) {
             }
             i++
         }
+
     }
     else {
         id = ((($('.vizNum').text()).slice(8)).replace(/\r|\n/g, '')).trim()
         while ($('.occ2').eq(i).text() != "") {
             type = 'Завершение обучения'
-            question = $('.ques').eq(i).text()
-            answ = $('.answ2').eq(i).find('select').val()
+            question = (($('.ques').eq(i).text()).replace(/\r|\n/g, '')).trim()
+            answ = $('.answ2').eq(i).find('select').val()+''
+            if (answ=='undefined'){answ = $('.answ2').eq(i).val()}
             nameauditor = (($('#lbl_user_name').text()).replace(/\r|\n/g, '')).trim()
             stage = 3
             /* str=str+' {"type": '+$($('.occ').eq(i).parents("table")).siblings("h4").text()+', "question": '+$('li').eq(i).text()+', "answer": '+$('.answ').eq(i).find('select').val()+'}, '*/
@@ -207,7 +210,6 @@ function saved(p) {
             }
             i++
         }
-        arr.push('type'='bjkl')
     }
 
     $.ajax({
@@ -231,17 +233,20 @@ function saved(p) {
 
                     alert("Сохранено!")
                     $('.podgot').empty()
+
                 }
         }
     });
     $('.timeS').text(time())
     if (p == 2) {
         $('.endVtp').css("display", "none")
-        $('.non').prop('selected', true);
         $('.answVtp').css("display", "none")
+        $('.non').prop('selected', true);
         $('.grade').text('')
+        $('.tem').selectpicker('deselectAll')
+        $('.inputComm').val('')
         clearSelVtp()
+        $('#selDistr').change()
     }
-
 }
 
