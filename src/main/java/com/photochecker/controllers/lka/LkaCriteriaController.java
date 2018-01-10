@@ -45,8 +45,6 @@ public class LkaCriteriaController {
         modelAndView.addObject("resVer", resVer);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param lkaId

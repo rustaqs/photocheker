@@ -1,11 +1,9 @@
 package com.photochecker.model.nst;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-
+/**
+ * Created by market6 on 20.06.2017.
+ */
 public class NstObl {
-
     private int id;
     private String name;
     private boolean checked;

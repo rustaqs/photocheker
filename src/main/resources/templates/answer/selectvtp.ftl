@@ -1,7 +1,7 @@
 <#ftl encoding="UTF-8"/>
 <#import "/spring.ftl" as spring/>
 <#include "../header.ftl">
-<#if Session.user.role==4>
+<#if Session.user.role==4 || Session.user.role==5 >
  <div class="container">
      <br>
      <div class="text-center lead">
@@ -54,6 +54,7 @@
                         <div class="col-md-12" align="center">
                             <h6>Результаты последнего обучения</h6>
                         </div>
+                        <div class="hz" style="display: none"></div>
                     </div>
                     <div class="jumbotron">
                         <div class="col-md-12 grade" align="center">
@@ -178,19 +179,12 @@
                             </table>
                         </ol>
                     </div>
-                    <div class="zvzd">
-                        <div class="col-md-12">
-                            <a class="zvHr" name="zvHr">*</a> - Оценки по 5-ти бальной шкале:1- Очевидно слабо;2- Хуже,
-                            чем должно быть;3- Отвечает ожиданиям;4- Очевидно хорошо;5-
-                            Явно сильные стороны
-                        </div>
-                    </div>
                     <div>
                         <div class="row occ2">
                             <h5 class="ques">
                                 Комментарий о работе за день:</h5>
                             <div class="col-md-12 ">
-                                <textarea class="inputComm answ2" style="width: 100%"></textarea>
+                                <textarea class="inputComm answ2" style="min-height: 130px; min-width: 250px; width: 100%" maxlength="255"  placeholder="Ограничение 255 символов"></textarea>
                             </div>
                         </div>
                         <div class="row occ2">
@@ -199,23 +193,6 @@
                             </h5>
                             <div class="col-md-12 answ2">
                                 <select class="selectpicker form-control tem" multiple data-max-options="2">
-                                    <optgroup label="Знание документов">
-                                        <option>История(1-2 вопрса)</option>
-                                        <option>Миссия, Видение и Ценности</option>дщ
-                                        <option>Стандарты работы ТП</option>
-                                    </optgroup>
-                                    <optgroup label="Продукция, свойства и преимущества">
-                                        <option>Продукция, свойства и преимущества</option>
-                                    </optgroup>
-                                    <optgroup label="Управление территорией">
-                                        <option>Корректность базы данных</option>
-                                        <option>Оборудование, контроль состояния</option>
-                                    </optgroup>
-                                    <optgroup label="Готовность к работе">
-                                        <option>Наличие документов, инструментов</option>
-                                        <option>Наличие необходимых POSM, хранение</option>
-                                        <option>Опрятный внешний вид, чистая машина</option>
-                                    </optgroup>
                                     <optgroup label="Подготовка визита">
                                         <option>Постоновка цели S.M.A.R.T</option>
                                         <option>Планирование вопросов</option>
@@ -273,13 +250,6 @@
                                         <option>Анализ визита / S.M.A.R.T</option>
                                         <option>Определение причин удачи/неудачи</option>
                                         <option>Цели на следующий визит в эту ТТ</option>
-                                    </optgroup>
-                                    <optgroup label="Завершение обучения">
-                                        <option>Деятельность конкурентов</option>
-                                        <option>Условия работы с ТТ</option>
-                                        <option>Цели на день, знание акций</option>
-                                        <option>Правила ведения фин. документации</option>
-                                        <option>Знание 100% ТТ территории</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -289,24 +259,7 @@
                                 Темы следующего обучения:
                             </h5>
                             <div class="col-md-12 answ2">
-                                <select class="selectpicker form-control tem" multiple data-max-options="2">
-                                    <optgroup label="Знание документов">
-                                        <option>История(1-2 вопрса)</option>
-                                        <option>Миссия, Видение и Ценности</option>
-                                        <option>Стандарты работы ТП</option>
-                                    </optgroup>
-                                    <optgroup label="Продукция, свойства и преимущества">
-                                        <option>Продукция, свойства и преимущества</option>
-                                    </optgroup>
-                                    <optgroup label="Управление территорией">
-                                        <option>Корректность базы данных</option>
-                                        <option>Оборудование, контроль состояния</option>
-                                    </optgroup>
-                                    <optgroup label="Готовность к работе">
-                                        <option>Наличие документов, инструментов</option>
-                                        <option>Наличие необходимых POSM, хранение</option>
-                                        <option>Опрятный внешний вид, чистая машина</option>
-                                    </optgroup>
+                                <select class="selectpicker form-control tem" multiple data-max-options="2" >
                                     <optgroup label="Подготовка визита">
                                         <option>Постоновка цели S.M.A.R.T</option>
                                         <option>Планирование вопросов</option>
@@ -364,13 +317,6 @@
                                         <option>Анализ визита / S.M.A.R.T</option>
                                         <option>Определение причин удачи/неудачи</option>
                                         <option>Цели на следующий визит в эту ТТ</option>
-                                    </optgroup>
-                                    <optgroup label="Завершение обучения">
-                                        <option>Деятельность конкурентов</option>
-                                        <option>Условия работы с ТТ</option>
-                                        <option>Цели на день, знание акций</option>
-                                        <option>Правила ведения фин. документации</option>
-                                        <option>Знание 100% ТТ территории</option>
                                     </optgroup>
                                 </select>
                             </div>

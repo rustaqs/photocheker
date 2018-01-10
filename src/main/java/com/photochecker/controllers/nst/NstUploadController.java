@@ -21,11 +21,7 @@ public class NstUploadController {
     @Autowired
     private NstUploadService nstUploadService;
 
-    /**
-	 *
-	 * @param resVer
-	 */
-	@GetMapping("/reports/nstUpload")
+    @GetMapping("/reports/nstUpload")
     public ModelAndView showNstUploadPage(@Value("${resVer}") String resVer) {
         ModelAndView modelAndView = new ModelAndView("nst/nstUpload");
         modelAndView.addObject("pageTitle", "Загрузка данных");
@@ -35,12 +31,7 @@ public class NstUploadController {
         return modelAndView;
     }
 
-    /**
-	 *
-	 * @param file
-	 * @param resVer
-	 */
-	@PostMapping("/reports/nstUpload")
+    @PostMapping("/reports/nstUpload")
     public ModelAndView uploadNstFile (@RequestParam("file") MultipartFile file,
                                        @Value("${resVer}") String resVer) {
 

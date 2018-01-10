@@ -9,7 +9,7 @@
         </a>
     </h4>
 </div>
-<div id="collapse2" class="panel-collapse" role="tabpane1" aria-labelledby="heading2">
+<div id="collapse2" class="panel-collapse" role="tabpane1" aria-labelledby="heading2" ">
     <div class="panel-body">
         <div class="container">
             <div class="row" style="margin: 0px 0px 10px 0px">
@@ -21,11 +21,7 @@
                 </div>
             </div>
             <div class="row ">
-                <div class="col-md-8">1. Управление территорией</div>
-            </div>
-            <p></p>
-            <div class="row">
-                <div class="col-md-8">2. Готовность к работе</div>
+                <div class="col-md-8 tema">${tema}</div>
             </div>
             <br/>
             <div class="col-md-12" id="vizitNum">
@@ -36,6 +32,7 @@
                     Очевидно хорошо;5- Явно сильные стороны</a>
                 </div>
             </div>
+            <#if id==1>
             <div class="row podgot" align="center">
                 <h4>Подготовка к рабочему дню</h4>
             </div>
@@ -198,6 +195,7 @@
                     </ol>
                 </form>
             </div>
+            </#if>
             <div class="row" align="center">
                 <div class="zvzd">
                     <div class="col-md-12">
@@ -716,9 +714,10 @@
                 </div>
             </form>
             <div align="center" style="margin: 20px 20px 20px 20px"><a href="#top">
-                <button  type="button" class="btn btn-primary btn-block btnSAV" onclick="saved()"
+                <button type="button" class="btn btn-primary btn-block btnSAV" onclick="saved()"
                         style="width: 250px; height: 30px">Следующаяя ТТ (Сохранить)
-                </button></a>
+                </button>
+            </a>
 
                 <p></p>
                 <button type="button" class="btn btn-primary btn-block" onclick="block()" style="width: 250px">

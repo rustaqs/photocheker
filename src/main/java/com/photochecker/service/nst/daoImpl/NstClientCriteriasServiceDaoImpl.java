@@ -6,11 +6,10 @@ import com.photochecker.model.nst.NstClientCriterias;
 import com.photochecker.service.nst.NstClientCriteriasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Service
+@Component
 public class NstClientCriteriasServiceDaoImpl implements NstClientCriteriasService {
 
     @Autowired

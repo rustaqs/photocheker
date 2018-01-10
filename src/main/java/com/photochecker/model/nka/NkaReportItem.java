@@ -1,7 +1,5 @@
 package com.photochecker.model.nka;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 public class NkaReportItem {
 

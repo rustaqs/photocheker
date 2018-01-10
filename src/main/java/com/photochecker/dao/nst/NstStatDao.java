@@ -1,7 +1,6 @@
 package com.photochecker.dao.nst;
 
 import com.photochecker.model.nst.NstStat;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -37,6 +37,7 @@
                     <option name="1">1 (Верификатор)</option>
                     <option name="2">2 (Непосредственный руководитель)</option>
                     <option name="3">3 (Руководитель отдела)</option>
+                    <option name="5">4 (Супервайзер)</option>
                 </select>
             </td>
         </tr>

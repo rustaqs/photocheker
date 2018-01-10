@@ -21,9 +21,10 @@ public class LoginController {
 	 *
 	 * @param resVer
 	 */
-	@GetMapping("/login")
+	@GetMapping("/selPath")
     public ModelAndView getLoginPage(@Value("${resVer}") String resVer) {
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("selPath");
+        modelAndView.addObject("pageCategory", "selPath");
         modelAndView.addObject("error", false);
         modelAndView.addObject("pageTitle", "Авторизация");
         modelAndView.addObject("resVer", resVer);
@@ -36,39 +37,27 @@ public class LoginController {
 	 * @param password
 	 * @param resVer
 	 */
-	@PostMapping(value="/login", params={"login_login", "login_password"})
+	@PostMapping(value="/selPath", params={"login_login", "login_password"})
     public ModelAndView checkLogin(
             HttpSession session,
             @RequestParam("login_login") String login,
             @RequestParam("login_password") String password,
             @Value("${resVer}") String resVer) {
-        ModelAndView modelAndView = new ModelAndView();
+
 
         User user = userService.loginUser(login, password);
         if (null == user) {
-            modelAndView.addObject("error", true);
-            modelAndView.addObject("pageTitle", "Авторизация");
-            modelAndView.addObject("resVer", resVer);
-            modelAndView.setViewName("login");
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("error", 1);
+            modelAndView.setViewName("redirect:" + "/");
             return modelAndView;
         }
-
         session.setAttribute("user", user);
-        String lastUrl = (String) session.getAttribute("lastUrl");
-        String dispatherPath;
-        if (null == lastUrl) {
-            dispatherPath = "/";
-        } else if (lastUrl.startsWith("/reports")) {
-            dispatherPath = "/reports";
-        } else if (lastUrl.startsWith("/route")) {
-            dispatherPath = "/route";
-        } else if (lastUrl.startsWith("/select")) {
-            dispatherPath = "/select";
-        }
-        else {
-            dispatherPath = "/";
-        }
-        modelAndView.setViewName("redirect:" + dispatherPath);
+        ModelAndView modelAndView = new ModelAndView("selPath");
+        modelAndView.addObject("pageCategory", "selPath");
+        modelAndView.addObject("pageTitle", "Авторизация");
+        modelAndView.addObject("resVer", resVer);
         return modelAndView;
     }
     /**
@@ -79,5 +68,6 @@ public class LoginController {
     public ModelAndView logoff(HttpSession session) {
         session.removeAttribute("user");
         return new ModelAndView("redirect:/");
+
     }
 }

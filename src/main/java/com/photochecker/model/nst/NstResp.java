@@ -2,14 +2,10 @@ package com.photochecker.model.nst;
 
 import com.photochecker.model.common.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-
+/**
+ * Created by market6 on 20.06.2017.
+ */
 public class NstResp implements Comparable<NstResp> {
-
-    private int id;
     private NstFormat nstFormat;
     private NstObl nstObl;
     private User user;

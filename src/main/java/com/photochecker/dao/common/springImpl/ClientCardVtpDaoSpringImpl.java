@@ -19,27 +19,39 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
     //language=SQL
     private final String SQL_FIND_BY_ID = "select * from `client_card_vtp` cc where `client_id`=? order by 2";
     //language=SQL
-    private final String SQL_FIND_ALL="select * from `client_card_vtp` cc order by 4";
+    private final String SQL_FIND_ALL = "select * from `client_card_vtp` cc order by 4";
     //language=SQL
-    private final String SQL_FIND_Region="select distinct cc.region_id, cc.region from `client_card_vtp` cc order by cc.region_id";
+    private final String SQL_FIND_Region = "select distinct cc.region_id, cc.region from `client_card_vtp` cc order by cc.region_id";
     //language=SQL
-    private final String SQL_FIND_Region_id="select distinct cc.region_id, cc.region from `client_card_vtp` cc where cc.region_id=?";
+    private final String SQL_FIND_Region_id = "select distinct cc.region_id, cc.region from `client_card_vtp` cc where cc.region_id=?";
     //language=SQL
-    private final String SQL_FIND_Distr_id="select distinct cc.region_id, cc.distr_id, cc.distr from `client_card_vtp` cc where cc.distr_id=?";
+    private final String SQL_FIND_Distr_id = "select distinct cc.region_id, cc.distr_id, cc.distr from `client_card_vtp` cc where cc.distr_id=?";
     //language=SQL
-    private final String SQL_FIND_Distr="select distinct cc.distr_id, cc.distr, cc.region_id from `client_card_vtp` cc where cc.region_id= ?";
+    private final String SQL_FIND_Distr = "select distinct cc.distr_id, cc.distr, cc.region_id from `client_card_vtp` cc where cc.region_id= ?";
     //language=SQL
-    private final String SQL_FIND_Vtp="select distinct cc.sector_id, cc.fio, cc.distr_id from `client_card_vtp` cc where cc.distr_id= ?";
+    private final String SQL_FIND_Vtp = "select distinct cc.sector_id, cc.fio, cc.distr_id from `client_card_vtp` cc where cc.distr_id= ?";
     //language=SQL
     private final String SQL_DeleteAll = "delete FROM client_card_vtp where id>0";
     //language=SQL
-    private final String SQL_SavAns = "INSERT INTO `answer` (`id`, `answer`, `creation_time`, `nameauditor`, `namevtp`, `question`, `time`, `type`,`vizNum`, `stage`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
- //language=SQL
+    private final String SQL_SavAns = "INSERT INTO `answer` (`id`, `answer`, `creation_time`, `nameauditor`, `namevtp`, `question`, `time`, `type`,`vizNum`, `stage`, `tema`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    //language=SQL
     private final String SQL_SAVE = "INSERT INTO `client_card_vtp`\n" +
             "(`id`,`region_id`,`region`,`city`, `distr`, `client_name`,`client_id`,`client_address`,`fio`,`kanal`,`type`,`distr_id`,`job`, `sector_name`,`sector_id`)\n" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
     //language=SQL
-    private final String SQL_Grade="SELECT\n" +
+    private final String SQL_TEMA = "select distinct case when a.question='Темы следующего обучения:' then a.answer else a.tema end answer, f.vizNum, left(f.creation_time,10) creation_time\n" +
+            "from (SELECT DISTINCT\n" +
+            "             a.vizNum,\n" +
+            "              a.creation_time\n" +
+            "            FROM answer a\n" +
+            "            WHERE\n" +
+            "                  a.namevtp =?\n" +
+            "                  AND      CAST(a.creation_time as DATETIME) =\n" +
+            "                           (Select Max(CAST(b.creation_time as DATETIME)) from answer b)) f\n" +
+            "              left join  answer a on f.creation_time=a.creation_time and a.namevtp = ? order by a.answer DESC";
+    //language=SQL
+    private final String SQL_Grade = "SELECT\n" +
             "  a4.Date date,\n" +
             "  CASE WHEN a4.stage = 1\n" +
             "    THEN 'Подготовка к рабочему дню'\n" +
@@ -47,7 +59,7 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
             "    THEN 'Этапы визита'\n" +
             "  WHEN a4.stage = 3\n" +
             "    THEN 'Итоги обучения' END stage,\n" +
-            "  CASE WHEN a4.stage = 1\n" +
+            " Round(CASE WHEN a4.stage = 1\n" +
             "    THEN sum(a4.grade) / count(a4.grade)\n" +
             "  WHEN a4.stage = 3\n" +
             "    THEN a4.grade\n" +
@@ -61,7 +73,7 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
             "    THEN 2\n" +
             "  WHEN sum(a4.grade) >= 1 AND sum(a4.grade) <= 2\n" +
             "    THEN 1\n" +
-            "  END                              grade\n" +
+            "  END   ,1)                           grade\n" +
             "FROM (SELECT DISTINCT\n" +
             "        a3.Date,\n" +
             "        a3.stage,\n" +
@@ -79,7 +91,7 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
             "              a2.type,\n" +
             "              sum(a2.Answ),\n" +
             "              sum(a2.vizNum),\n" +
-            "              (sum(a2.Answ) / sum(a2.vizNum)) * 100 '%'\n" +
+            "              (sum(a2.Answ) /  case when a2.stage = 3 then 5 else sum(a2.vizNum) end ) * 100 '%'\n" +
             "            FROM (\n" +
             "                   SELECT\n" +
             "                     a.stage,\n" +
@@ -125,27 +137,9 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
                 resultSet.getInt("sector_id"));
         return clientCardVtp;
     };
-  /*  private RowMapper<ClientCardVtp> clientCVtpRM = (resultSet, i) -> {
 
-        ClientCardVtp clientCardVtp = new ClientCardVtp(
-                resultSet.getInt("region_id"),
-                resultSet.getString("region").trim(),
-                resultSet.getString("city"),
-                resultSet.getString("distr"),
-                resultSet.getString("client_name"),
-                resultSet.getInt("client_id"),
-                resultSet.getString("client_address"),
-                resultSet.getString("fio"),
-                resultSet.getString("kanal"),
-                resultSet.getString("type"),
-                resultSet.getInt("distr_id"),
-                resultSet.getString("job"),
-                resultSet.getString("sector_name"),
-                resultSet.getInt("sector_id"));
-        return clientCardVtp;
-    };*/
     private RowMapper<Region> regionMapper = (resultSet, i) -> {
-        Region region = new Region( resultSet.getInt("region_id"),
+        Region region = new Region(resultSet.getInt("region_id"),
                 resultSet.getString("region"));
         return region;
     };
@@ -153,7 +147,7 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
 
     private RowMapper<Distr> distrMapper = (resultSet, i) -> {
         int region_id = resultSet.getInt("region_id");
-        List<Region> region = jdbcTemplate.query(SQL_FIND_Region_id,regionMapper, region_id);
+        List<Region> region = jdbcTemplate.query(SQL_FIND_Region_id, regionMapper, region_id);
         return new Distr(resultSet.getInt("distr_id"),
                 resultSet.getString("distr"),
                 region.get(0)
@@ -161,22 +155,24 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
     };
     private RowMapper<Vtp> vtpMapper = (resultSet, i) -> {
         int distr_id = resultSet.getInt("distr_id");
-        List<Distr> distr = jdbcTemplate.query(SQL_FIND_Distr_id,distrMapper, distr_id);
+        List<Distr> distr = jdbcTemplate.query(SQL_FIND_Distr_id, distrMapper, distr_id);
         return new Vtp(resultSet.getInt("sector_id"),
                 resultSet.getString("fio"),
                 distr.get(0)
         );
     };
     private RowMapper<Grade> gradeRowMapper = (resultSet, i) -> {
-        Grade grade = new Grade( resultSet.getDate("date"),
+        Grade grade = new Grade(resultSet.getDate("date"),
                 resultSet.getString("stage"),
                 resultSet.getDouble("grade"));
         return grade;
     };
+
     @Autowired
     public ClientCardVtpDaoSpringImpl(@Qualifier("dataSource") DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public int save(ClientCardVtp clientCardVtp) {
         return jdbcTemplate.update(SQL_SAVE,
@@ -196,49 +192,67 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
                 clientCardVtp.getSector_name(),
                 clientCardVtp.getSector_id());
     }
+
     @Override
     public ClientCardVtp find(int id) {
         List<ClientCardVtp> result = jdbcTemplate.query(SQL_FIND_BY_ID, clientCardVtpRowMapper, id);
         return result.size() > 0 ? result.get(0) : null;
     }
+
     @Override
     public List<ClientCardVtp> findAll() {
         return jdbcTemplate.query(SQL_FIND_ALL, clientCardVtpRowMapper);
     }
+
     @Override
     public boolean update(ClientCardVtp clientCardVtpDao) {
         return false;
     }
+
     @Override
     public void remove(ClientCardVtp clientCardVtp) {
     }
+
     @Override
     public void remove() {
         jdbcTemplate.update(SQL_DeleteAll);
     }
+
     @Override
-    public List<Region> findlistRegion () {
-        return jdbcTemplate.query(SQL_FIND_Region,regionMapper);
+    public List<Region> findlistRegion() {
+        return jdbcTemplate.query(SQL_FIND_Region, regionMapper);
     }
+
     @Override
-    public List<Distr> findlistDistr(int regionid){
-        return jdbcTemplate.query(SQL_FIND_Distr,distrMapper, regionid);
+    public List<Distr> findlistDistr(int regionid) {
+        return jdbcTemplate.query(SQL_FIND_Distr, distrMapper, regionid);
     }
+
     @Override
-    public List<Vtp> findlistVtp(int distrid){
-        return jdbcTemplate.query(SQL_FIND_Vtp,vtpMapper, distrid);
+    public List<Vtp> findlistVtp(int distrid) {
+        return jdbcTemplate.query(SQL_FIND_Vtp, vtpMapper, distrid);
     }
-    public String getGrade(String fio){
-        List<Grade> grade = jdbcTemplate.query(SQL_Grade,gradeRowMapper, fio);
-        String gradeText="Дата проведения: " + grade.get(0).getDate() + ". " + grade.get(0).getStage() + ": Оценка - " +
+
+    public String getGrade(String fio) {
+        List<Grade> grade = jdbcTemplate.query(SQL_Grade, gradeRowMapper, fio);
+        String gradeText = "Дата проведения: " + grade.get(0).getDate() + ". " + grade.get(0).getStage() + ": Оценка - " +
                 grade.get(0).getGrade() + ". " + grade.get(1).getStage() + ": Оценка - " +
                 grade.get(1).getGrade() + ". " + grade.get(2).getStage() + ": Оценка - " +
                 grade.get(2).getGrade() + ".";
         return gradeText;
     }
+
+    public RowMapper<Tema> temaRowMapper = (resultSet, i) -> {
+        Tema tema = new Tema(resultSet.getString("answer"),
+                resultSet.getInt("vizNum"),
+                resultSet.getString("creation_time")
+        );
+        return tema;
+    };
+
     @Override
-    public void saveA (Answer answer){
-         jdbcTemplate.update(SQL_SavAns, answer.getId(),
+    public void saveA(Answer answer) {
+        jdbcTemplate.update(SQL_SavAns, answer.getId(),
                 answer.getAnswer(),
                 answer.getCreationTime(),
                 answer.getNameauditor(),
@@ -247,8 +261,16 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
                 answer.getTime(),
                 answer.getType(),
                 answer.getVizNum(),
-                answer.getStage());
+                answer.getStage(),
+                answer.getTema());
     }
+
+    public List<Tema> getTema(String fio) {
+            List<Tema> tema = jdbcTemplate.query(SQL_TEMA, temaRowMapper, fio, fio);
+            return tema;
+
+    }
+
 /*
     public List<ClientCardVtp> findlistClientN(int vtpid){
         return jdbcTemplate.query(SQL_FIND_ClientN,clientNMapper, vtpid);

@@ -28,11 +28,7 @@ public class NstRespController {
     @Autowired
     UserService userService;
 
-    /**
-	 *
-	 * @param resVer
-	 */
-	@GetMapping("/reports/nstResp")
+    @GetMapping("/reports/nstResp")
     public ModelAndView getNstRespPage(@Value("${resVer}") String resVer) {
         ModelAndView modelAndView = new ModelAndView("nst/nstRespPage");
 
@@ -48,12 +44,8 @@ public class NstRespController {
     }
 
 
-    /**
-	 *
-	 * @param nstRespListJson
-	 */
-	@PostMapping(value="/reports/nstResp/save", produces="application/json")
-	@ResponseBody
+    @PostMapping(value = "/reports/nstResp/save", produces = "application/json")
+    @ResponseBody
     public Map<String, Boolean> saveNstResp (@RequestParam("nstRespList") String nstRespListJson) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<NstResp>>(){}.getType();

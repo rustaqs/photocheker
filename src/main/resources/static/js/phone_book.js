@@ -1,5 +1,6 @@
 $(function () {
 
+
     $('#selRegion').change(function () {
         var regionId = $('#selRegion option:selected').data('value')
         clearSelVtp()
@@ -30,9 +31,9 @@ $(function () {
             $('.endVtp').css("display", "none")
             $('.timeS').text(time())
             $('.selectpicker').selectpicker('refresh');
-        $('.grade').text('')
+            $('.grade').text('')
             $('.answVtp').empty()
-            $.post('answer/answer', {id: 1, fio: $('#selVtp option:selected').text()})
+            $.post('answer/answer', {fio: $('#selVtp option:selected').text()})
                 .done(function (data) {
                     checkForRedirect(data);
                     console.log(data);
@@ -45,22 +46,21 @@ $(function () {
                 .always(function (data) {
                     $('#loader').css('display', 'none');
                 });
-        $.post('answer/grade', {fio: $('#selVtp option:selected').text()})
-            .done(function (data) {
-                checkForRedirect(data);
-                console.log(data);
-                $('.grade').append(data);
-            })
-            .fail(function () {
-                showErrorPane()
-            })
-            .always(function (data) {
-                $('#loader').css('display', 'none');
-            });
+            $.post('answer/grade', {fio: $('#selVtp option:selected').text()})
+                .done(function (data) {
+                    checkForRedirect(data);
+                    console.log(data);
+                    $('.grade').append(data);
+                })
+                .fail(function () {
+                    showErrorPane()
+                })
+                .always(function (data) {
+                    $('#loader').css('display', 'none');
+                });
             $('.selV1').text('Выбор ВТП: ' + $('#selVtp option:selected').text())
             $('.selV2').text('Оценка работы ВТП: ' + $('#selVtp option:selected').text())
             $('.endVt').text('Подведение итогов за день: ' + $('#selVtp option:selected').text())
-            $('.vizNum').text('Визит №: 1')
         }
     )
 })
@@ -86,7 +86,7 @@ function time() {
     if (date.length == 1) {
         date = '0' + date
     }
-    var tiDa =year  + '.' + month + '.' + date + ';' + hour + ':' + min + ':' + sec
+    var tiDa = year + '.' + month + '.' + date + ';' + hour + ':' + min + ':' + sec
     return tiDa
 }
 
@@ -121,25 +121,33 @@ function block() {
 
 function saved(p) {
     var text = ((($(".selV2").text()).slice(32)).replace(/\r|\n/g, '')).trim()
-    let type
-    let question
-    let answ
-    let nameauditor
-    let i = 0
-    let json = 0
+    var type
+    var question
+    var answ
+    var nameauditor
+    var i = 0
+    var json = 0
     var arr = []
     var now = $('.timeS').text()
     var now2 = time()
     fiovtp = text
     id = ((($('.vizNum').text()).slice(8)).replace(/\r|\n/g, '')).trim()
+    var size = $('.occ').length
+    var t = 0
     if (p != 2) {
         while ($('.occ').eq(i).text() != "") {
             type = $($('.occ').eq(i).parents("table")).siblings("h4").text()
-            question = $('li').eq(i).text()
+            question = (($('.occ').eq(i).text()).replace(/\r|\n/g, '')).trim()
             answ = $('.answ').eq(i).find('select').val()
+            tema=$('.tema').text()
+            if (answ == undefined || answ == null) {
+                alert("Сохранение невозможно, необходимо оценить все пункты")
+                t = 1
+                break
+            }
             nameauditor = (($('#lbl_user_name').text()).replace(/\r|\n/g, '')).trim()
             stage = $($('.answ').eq(i)).parents('form').attr('id')
-            /* str=str+' {"type": '+$($('.occ').eq(i).parents("table")).siblings("h4").text()+', "question": '+$('li').eq(i).text()+', "answer": '+$('.answ').eq(i).find('select').val()+'}, '*/
+
             if (json == 0) {
                 json = JSON.stringify({
                     'type': type,
@@ -150,7 +158,8 @@ function saved(p) {
                     'time': now,
                     'creationTime': now2,
                     'vizNum': id,
-                    'stage': stage
+                    'stage': stage,
+                    'tema': tema
                 })
                 arr.push(JSON.parse(json))
             } else {
@@ -164,23 +173,31 @@ function saved(p) {
                 js['time'] = now
                 js['creationTime'] = now2
                 js['vizNum'] = id
-                js['stage']= stage
+                js['stage'] = stage
+                js['tema']=tema
                 arr.push(js);
             }
             i++
         }
-
     }
     else {
         id = ((($('.vizNum').text()).slice(8)).replace(/\r|\n/g, '')).trim()
         while ($('.occ2').eq(i).text() != "") {
             type = 'Завершение обучения'
             question = (($('.ques').eq(i).text()).replace(/\r|\n/g, '')).trim()
-            answ = $('.answ2').eq(i).find('select').val()+''
-            if (answ=='undefined'){answ = $('.answ2').eq(i).val()}
+            answ = $('.answ2').eq(i).find('select').val() + ''
+            tema=$('.tema').text()
+            if (answ == undefined || answ == 'null' || answ == ''  || answ == null) {
+                alert("Сохранение невозможно, необходимо оценить все пункты")
+                t = 1
+                break
+            }
+            if (answ == 'undefined') {
+                answ = $('.answ2').eq(i).val()
+            }
             nameauditor = (($('#lbl_user_name').text()).replace(/\r|\n/g, '')).trim()
             stage = 3
-            /* str=str+' {"type": '+$($('.occ').eq(i).parents("table")).siblings("h4").text()+', "question": '+$('li').eq(i).text()+', "answer": '+$('.answ').eq(i).find('select').val()+'}, '*/
+
             if (json == 0) {
                 json = JSON.stringify({
                     'type': type,
@@ -190,8 +207,9 @@ function saved(p) {
                     'namevtp': fiovtp,
                     'time': now,
                     'creationTime': now2,
-                    'vizNum': id-1,
-                    'stage': stage
+                    'vizNum': id - 1,
+                    'stage': stage,
+                    'tema': tema
                 })
                 arr.push(JSON.parse(json))
             } else {
@@ -205,48 +223,48 @@ function saved(p) {
                 js['time'] = now
                 js['creationTime'] = now2
                 js['vizNum'] = id - 1
-                js['stage']= stage
+                js['stage'] = stage
+                js['tema']=tema
                 arr.push(js);
             }
             i++
         }
     }
+    if (t != 1) {
+        $.ajax({
+            url: 'answer/evaluators',
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(arr),
+            statusCode: {
+                500:
+                    function (xhr) {
+                        window.location = '/login.html';
+                        alert("Сервер не доступен!")
+                    }
+                ,
+                200:
+                    function (xhr) {
+                        checkForRedirect(xhr);
+                        console.log(xhr);
+                        $('.answVtp').empty();
+                        $('.answVtp').append(xhr);
+                        alert("Сохранено!")
+                    }
+            }
+        });
 
-    $.ajax({
-        url: 'answer/evaluators',
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(arr),
-        statusCode: {
-            500:
-                function (xhr) {
-                    window.location = '/login.html';
-                    alert("Сервер не доступен!")
-                }
-            ,
-            200:
-                function (xhr) {
-                    checkForRedirect(xhr);
-                    console.log(xhr);
-                    $('.answVtp').empty();
-                    $('.answVtp').append(xhr);
-
-                    alert("Сохранено!")
-                    $('.podgot').empty()
-
-                }
+        $('.timeS').text(time())
+        if (p == 2) {
+            $('.endVtp').css("display", "none")
+            $('.answVtp').css("display", "none")
+            $('.non').prop('selected', true);
+            $('.grade').text('')
+            $('.tem').selectpicker('deselectAll')
+            $('.inputComm').val('')
+            clearSelVtp()
+            $('#selDistr').change()
         }
-    });
-    $('.timeS').text(time())
-    if (p == 2) {
-        $('.endVtp').css("display", "none")
-        $('.answVtp').css("display", "none")
-        $('.non').prop('selected', true);
-        $('.grade').text('')
-        $('.tem').selectpicker('deselectAll')
-        $('.inputComm').val('')
-        clearSelVtp()
-        $('#selDistr').change()
     }
 }
 

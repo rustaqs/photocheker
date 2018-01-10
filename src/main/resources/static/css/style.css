@@ -67,9 +67,8 @@ html, body {
 
 /*login page*/
 #login_block {
-    width: 500px;
+    width: 320px;
     margin-top: 100px;
-    margin-left: calc(100%/2 - 250px);
     display: block;
     border: 1px solid #666;
     background-color: #f7fbff;
@@ -79,18 +78,13 @@ html, body {
 .login_title {
     font-size: 1.7em;
     font-weight: bold;
-    text-align: center;
-    display: block;
-    margin: 15px;
 }
 
 .login_input {
     width: 250px;
     height: 30px;
-    border: 2px solid grey;
     margin-top: 10px;
     font-size: 1.2em;
-    border-radius: 10px;
     padding-left: 15px;
 
 }

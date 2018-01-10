@@ -5,12 +5,11 @@ import com.photochecker.model.nst.NstPhotoCard;
 import com.photochecker.service.nst.NstPhotoCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+@Component
 public class NstPhotoCardServiceDaoImpl implements NstPhotoCardService {
     @Autowired
     private NstPhotoCardDao nstPhotoCardDao;

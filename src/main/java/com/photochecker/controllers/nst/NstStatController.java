@@ -18,16 +18,8 @@ public class NstStatController {
     @Autowired
     private NstStatService nstStatService;
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param formatId
-	 * @param oblId
-	 * @param session
-	 */
-	@PostMapping(value="/reports/nst/getStat", produces="application/json; charset=UTF-8")
-	@ResponseBody
+    @PostMapping(value = "/reports/nst/getStat", produces = "application/json; charset=UTF-8")
+    @ResponseBody
     public NstStat getNstStat (@RequestParam("dateFrom") String dateFromS,
                                @RequestParam("dateTo") String dateToS,
                                @RequestParam("formatId") int formatId,

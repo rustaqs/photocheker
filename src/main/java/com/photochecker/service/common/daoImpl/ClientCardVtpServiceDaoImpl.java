@@ -34,10 +34,15 @@ public class ClientCardVtpServiceDaoImpl implements ClientCardVtpService {
         String grade = clientCardVtpDao.getGrade(fio);
         return grade;
     }
+    @Override
+    public List<Tema> getTema(String fio){
+        List<Tema> tema = clientCardVtpDao.getTema(fio);
+        return tema;
+    }
 
     @Override
-    public void setAns(String type, String question, String answer, String nameauditor, String namevtp, String time, String creationTime, int vizNum, int stage) {
-       Answer answer1 = new Answer(type, question,  answer,  nameauditor,  namevtp,  time,  creationTime,vizNum, stage);
+    public void setAns(String type, String question, String answer, String nameauditor, String namevtp, String time, String creationTime, int vizNum, int stage, String tema) {
+       Answer answer1 = new Answer(type, question,  answer,  nameauditor,  namevtp,  time,  creationTime,vizNum, stage, tema);
         clientCardVtpDao.saveA( answer1);
     }
   /*  @Override

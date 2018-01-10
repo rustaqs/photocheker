@@ -53,9 +53,9 @@
                     <#if repTypes?seq_contains(5)>
                         <div class="report_link"><a href="/reports/lka">Просмотр фото</a> </div>
                     </#if>
-                    <#if repTypes?seq_contains(6)>
+                   <#-- <#if repTypes?seq_contains(6)>
                         <div class="report_link"><a href="/reports/lka_ma">Фото от маркетинговых агенств</a> </div>
-                    </#if>
+                    </#if>-->
                     <#if Session.user.role gte 2>
                         <div class="report_link"><a href="/reports/lka_criteria">Критерии по сетям</a> </div>
                     </#if>

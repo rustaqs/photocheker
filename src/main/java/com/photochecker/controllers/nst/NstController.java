@@ -38,12 +38,7 @@ public class NstController {
     private NstPhotoCardService nstPhotoCardService;
 
 
-    /**
-	 *
-	 * @param session
-	 * @param resVer
-	 */
-	@GetMapping("/reports/nst")
+    @GetMapping("/reports/nst")
     public ModelAndView showNstPage(HttpSession session,
                                     @Value("${resVer}") String resVer) {
         ModelAndView modelAndView = new ModelAndView("nst/nstPage");
@@ -64,13 +59,7 @@ public class NstController {
         return modelAndView;
     }
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param session
-	 */
-	@PostMapping("/reports/nst/getNstFormat")
+    @PostMapping("/reports/nst/getNstFormat")
     public ModelAndView nstFormatAjax (@RequestParam("dateFrom") String dateFromS,
                                        @RequestParam("dateTo") String dateToS,
                                        HttpSession session) {
@@ -84,14 +73,7 @@ public class NstController {
         return modelAndView;
     }
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param formatId
-	 * @param session
-	 */
-	@PostMapping("/reports/nst/getNstObl")
+    @PostMapping("/reports/nst/getNstObl")
     public ModelAndView nstOblAjax (@RequestParam("dateFrom") String dateFromS,
                                     @RequestParam("dateTo") String dateToS,
                                     @RequestParam("formatId") int formatId,
@@ -108,14 +90,7 @@ public class NstController {
     }
 
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param formatId
-	 * @param nstOblId
-	 */
-	@PostMapping("/reports/nst/getClients")
+    @PostMapping("/reports/nst/getClients")
     public ModelAndView nstClientCardsAjax (@RequestParam("dateFrom") String dateFromS,
                                             @RequestParam("dateTo") String dateToS,
                                             @RequestParam("formatId") int formatId,
@@ -132,13 +107,7 @@ public class NstController {
     }
 
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param clientId
-	 */
-	@PostMapping("/reports/nst/getPhotos")
+    @PostMapping("/reports/nst/getPhotos")
     public ModelAndView nstPhotosAjax(@RequestParam("dateFrom") String dateFromS,
                                       @RequestParam("dateTo") String dateToS,
                                       @RequestParam("clientId") int clientId) {

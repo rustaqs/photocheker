@@ -1,12 +1,10 @@
 package com.photochecker.model.nka;
 
+
 import com.google.common.base.Objects;
 import com.photochecker.model.common.FormatType;
 import com.photochecker.model.common.Lka;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 

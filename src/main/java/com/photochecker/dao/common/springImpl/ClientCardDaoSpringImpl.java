@@ -82,7 +82,6 @@ public class ClientCardDaoSpringImpl implements ClientCardDao {
             "SET `client_name` = ?, `client_address` = ?, `channel_id` = ?, `lka_id` = ?, `format_id` = ?, `nka_type` = ?\n" +
             "WHERE `client_id` = ?";
 
-
     private JdbcTemplate jdbcTemplate;
     private List<Distr> distrList;
     private List<Lka> lkaList;

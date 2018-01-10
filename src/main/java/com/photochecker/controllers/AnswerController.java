@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -67,13 +69,37 @@ public class AnswerController {
     }
 
     @PostMapping("answer/answer")
-    public ModelAndView showReportAns(@RequestParam("id") int id,
-                                      @RequestParam("fio") String fio,
+    public ModelAndView showReportAns(@RequestParam("fio") String fio,
                                       HttpSession session,
                                       @Value("${resVer}") String resVer) {
+
+        List<Tema> tema = clientCardVtpService.getTema(fio);
+
+        Date date = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd");
+        int u = 0;
+        String d = formatForDateNow.format(date).toString();
+        String dat = new String();
+        String temaT = new String();
+
+        if (tema.size() != 0) {
+            dat = tema.get(0).getDate();
+            temaT = tema.get(0).getTema();
+            if (!dat.equals(d)) {
+                u = 1;/* tema[1] = "1";*/
+            } else {
+                u = tema.get(0).getVizNum() + 1;
+            }
+        } else {
+            temaT = "-";
+            u = 1;
+        }
+
+
         ModelAndView model = new ModelAndView("answer/option/answer");
-        model.addObject("id", id);
+        model.addObject("id", u);
         model.addObject("vizN", fio);
+        model.addObject("tema", temaT);
         model.addObject("resVer", resVer);
         return model;
     }
@@ -83,16 +109,40 @@ public class AnswerController {
                                   HttpSession session,
                                   @Value("${resVer}") String resVer) {
         String grade;
-       try {
+        try {
             grade = clientCardVtpService.getGrade(fio);
-        }catch (IndexOutOfBoundsException e){ grade="Иформации по последнему обучению нет";
+        } catch (IndexOutOfBoundsException e) {
+            grade = "Иформации по последнему обучению нет";
         }
         ModelAndView model = new ModelAndView("answer/option/grade");
         model.addObject("grade", grade);
         model.addObject("resVer", resVer);
         return model;
-
     }
+
+    /**
+     * @param fio
+     * @param session
+     * @param resVer
+     * @return
+     */
+    /*@PostMapping("answer/tema")
+    public ModelAndView showTema(@RequestParam("fio") String fio,
+                                 HttpSession session,
+                                 @Value("${resVer}") String resVer) {
+        String[] tema;
+        try {
+            tema = clientCardVtpService.getTema(fio);
+        } catch (IndexOutOfBoundsException e) {
+            tema = new String[]{"-"};
+        }
+        ModelAndView model = new ModelAndView("answer/option/tema");
+        model.addObject("tema", tema[0]);
+        model.addObject("vizNum", tema[1]);
+        model.addObject("date", tema[2]);
+        model.addObject("resVer", resVer);
+        return model;
+    }*/
 
     /**
      * @param distrId
@@ -130,6 +180,7 @@ public class AnswerController {
         answers.stream().forEach(c -> c.setCreationTime(c.getCreationTime()));
         answers.stream().forEach(c -> c.setVizNum(c.getVizNum()));
         answers.stream().forEach(c -> c.setStage(c.getStage()));
+        answers.stream().forEach(c -> c.setTema(c.getTema()));
         for (int i = 0; i < answers.size(); i++) {
             clientCardVtpService.setAns(answers.get(i).getType(),
                     answers.get(i).getQuestion(),
@@ -139,15 +190,15 @@ public class AnswerController {
                     answers.get(i).getTime(),
                     answers.get(i).getCreationTime(),
                     answers.get(i).getVizNum(),
-                    answers.get(i).getStage());
+                    answers.get(i).getStage(),
+                    answers.get(i).getTema());
         }
         ModelAndView model = new ModelAndView("answer/option/answer");
         model.addObject("id", answers.get(1).getVizNum() + 1);
         model.addObject("vizN", answers.get(1).getNamevtp());
+        model.addObject("tema", answers.get(1).getTema());
         model.addObject("resVer", resVer);
         return model;
     }
-
-
 }
 

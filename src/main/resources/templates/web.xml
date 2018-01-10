@@ -3,6 +3,11 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+<session-config>
+
+    <session-timeout>60</session-timeout>
+
+</session-config>
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>

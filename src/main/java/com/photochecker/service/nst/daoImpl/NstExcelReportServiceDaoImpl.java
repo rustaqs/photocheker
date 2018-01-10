@@ -12,7 +12,6 @@ import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
 import java.io.*;
@@ -22,7 +21,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class NstExcelReportServiceDaoImpl implements NstExcelReportService {
 
     @Autowired
@@ -74,7 +73,7 @@ public class NstExcelReportServiceDaoImpl implements NstExcelReportService {
             i++;
         }
 
-        File file = new File(servletContext.getRealPath("/resources/excelTemplates/nst_template.xlsx"));
+        File file = new File(servletContext.getRealPath("/WEB-INF/classes/static/excelTemplates/nst_template.xlsx"));
 
         try (InputStream is = new FileInputStream(file)) {
 

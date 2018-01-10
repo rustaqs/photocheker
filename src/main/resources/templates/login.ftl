@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="login_block">
-    <form action="/login" id="login_form" method="post">
+    <form action="/selPath" id="login_form" method="post">
         <div class="login_title">Пожалуйста, авторизуйтесь!</div>
         <input type="text" class="login_input" name="login_login" placeholder="Логин"><br>
         <input type="password" class="login_input" name="login_password" placeholder="Пароль"><br>

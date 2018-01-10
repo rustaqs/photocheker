@@ -1,13 +1,9 @@
 package com.photochecker.model.nst;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class NstPhotoCard {
-
     private int id;
     private int clientId;
     private String url;

@@ -32,9 +32,7 @@ public class LkaController {
     private ClientCardService clientCardService;
     @Autowired
     private PhotoCardService photoCardService;
-
     private final int REP_TYPE_INDEX = 5;
-
     /**
 	 *
 	 * @param session
@@ -60,8 +58,6 @@ public class LkaController {
 
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -82,8 +78,6 @@ public class LkaController {
         modelAndView.addObject("regionList", regionList);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -106,8 +100,6 @@ public class LkaController {
         modelAndView.addObject("distrList", distrList);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -127,8 +119,6 @@ public class LkaController {
         modelAndView.addObject("lkaList", lkaList);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -150,8 +140,6 @@ public class LkaController {
         modelAndView.addObject("clientsList", clientCardList);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -171,8 +159,6 @@ public class LkaController {
         modelAndView.addObject("photoList", photoCardList);
         return modelAndView;
     }
-
-
     /**
 	 *
 	 * @param lkaId

@@ -3,11 +3,9 @@ package com.photochecker.dao.nst.springImpl;
 import com.photochecker.dao.nst.NstClientCriteriasDao;
 import com.photochecker.model.nst.NstClientCriterias;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.Date;
@@ -17,8 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 
-@Transactional
-@Repository
+@Component
 public class NstClientCriteriasDaoSpringImpl implements NstClientCriteriasDao {
 
     private final String SQL_FIND_ALL_BY_DATES = "SELECT * FROM `nst_save_db` sav " +
@@ -80,7 +77,7 @@ public class NstClientCriteriasDaoSpringImpl implements NstClientCriteriasDao {
     private Properties properties;
 
     @Autowired
-    public NstClientCriteriasDaoSpringImpl(@Qualifier("dataSource") DataSource dataSource) {
+    public NstClientCriteriasDaoSpringImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

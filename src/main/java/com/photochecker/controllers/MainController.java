@@ -17,6 +17,7 @@ public class MainController {
     @RequestMapping(value="/",method = RequestMethod.GET)
     public ModelAndView showIndexPage(@Value("${resVer}") String resVer) {
         ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("error", false);
         modelAndView.addObject("resVer", resVer);
         return modelAndView;
     }

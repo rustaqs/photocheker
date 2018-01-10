@@ -2,12 +2,10 @@ package com.photochecker.model.nst;
 
 import com.google.common.collect.ComparisonChain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+/**
+ * Created by market6 on 20.06.2017.
+ */
 public class NstReportItem implements Comparable<NstReportItem> {
-
     private int index;
     private int nstOblId;
     private String nstObl;

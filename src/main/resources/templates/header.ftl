@@ -5,14 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>${pageTitle}</title>
-
     <link type="text/css" href="<@spring.url "/css/style.css"/>?${resVer}" rel="stylesheet">
     <#if pageCategory == 'lka'>
         <link type="text/css" href="<@spring.url "/css/lkaStyle.css"/>?${resVer}" rel="stylesheet">
     </#if>
-        <#if pageCategory == 'select'>
-        <link type="text/css" href="<@spring.url "/css/answe.css"/>?${resVer}" rel="stylesheet">
-        </#if>
+
     <#if pageCategory == 'mlka'>
         <link type="text/css" href="<@spring.url "/css/mlkaStyle.css"/>?${resVer}" rel="stylesheet">
     </#if>
@@ -35,16 +32,20 @@
         <link type="text/css" href="<@spring.url "/css/nkaParamStyle.css"/>?${resVer}" rel="stylesheet">
     </#if>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <#if pageCategory == 'select' >
+    <script src="<@spring.url "/js/main.js"/>?${resVer}" type="text/javascript"></script>
+    <#if pageCategory == 'select'  || pageCategory == 'selPath'>
     <script src="<@spring.url "/js/phone_book.js"/>?${resVer}" type="text/javascript"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="<@spring.url "/js/main.js"/>?${resVer}" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-ru_RU.min.js"></script>
     </#if>
-
+       <#if pageCategory == 'select'>
+        <link type="text/css" href="<@spring.url "/css/answe.css"/>?${resVer}" rel="stylesheet">
+       </#if>
     <#if pageCategory == 'lka'>
         <script src="<@spring.url "/js/lka.js"/>?${resVer}" type="text/javascript"></script>
     </#if>
@@ -75,12 +76,16 @@
 <div id="savedSuccessfullyBlock">Данные успешно сохранены!</div>
 <div id="head_pane">
     <div class="row">
+        <#if pageCategory != 'selPath'>
         <div class="col-md-1" align="left">
             <div class="report_title">
-                <a href="/" style="border: 0;">Главная</a>
+                <#if Session.user.role == 4>
+                <a href="/selPath" style="border: 0;">Главная</a>
+                </#if>
                 <a class="rep" href="/reports" style="border: 0;">Отчеты</a>
             </div>
         </div>
+        </#if>
         <div>
             <div id="filter_pane">
                 <div id="logoff_pane">

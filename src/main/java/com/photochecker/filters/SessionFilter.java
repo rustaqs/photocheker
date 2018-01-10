@@ -24,16 +24,17 @@ public class SessionFilter implements Filter {
         String lastUrl = request.getRequestURI();
         request.getSession().setAttribute("lastUrl", lastUrl);
         if (null == request.getSession(false) || null == request.getSession().getAttribute("user")) {
-            if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            String t = request.getHeader("X-Requested-With");
+            if ("XMLHttpRequest".equals(t)) {
                 JsonObject jsonObject = Json.createObjectBuilder()
-                        .add("urlToRedirect", "login")
+                        .add("urlToRedirect", "/")
                         .build();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(jsonObject.toString());
                 return;
             } else {
-                ((HttpServletResponse) resp).sendRedirect("/login");
+                ((HttpServletResponse) resp).sendRedirect("/");
                 return;
             }
         }

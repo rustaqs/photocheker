@@ -22,16 +22,8 @@ public class NstClientCriteriasController {
     @Autowired
     private NstClientCriteriasService nstClientCriteriasService;
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param formatId
-	 * @param oblId
-	 * @param critJson
-	 */
-	@PostMapping(value="/reports/nst/saveCriterias", produces="application/json")
-	@ResponseBody
+    @PostMapping(value = "/reports/nst/saveCriterias", produces = "application/json")
+    @ResponseBody
     public Map<String, Integer> saveNstClientCriterias(@RequestParam("dateFrom") String dateFromS,
                                                         @RequestParam("dateTo") String dateToS,
                                                         @RequestParam("formatId") int formatId,
@@ -54,14 +46,8 @@ public class NstClientCriteriasController {
     }
 
 
-    /**
-	 *
-	 * @param dateFromS
-	 * @param dateToS
-	 * @param clientId
-	 */
-	@PostMapping(value="/reports/nst/getSavedCriterias", produces="application/json; charset=UTF-8")
-	@ResponseBody
+    @PostMapping(value = "/reports/nst/getSavedCriterias", produces = "application/json; charset=UTF-8")
+    @ResponseBody
     public NstClientCriterias getSavedNstClientCriterias(@RequestParam("dateFrom") String dateFromS,
                                                          @RequestParam("dateTo") String dateToS,
                                                          @RequestParam("clientId") int clientId) {

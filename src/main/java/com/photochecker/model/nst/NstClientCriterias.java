@@ -1,13 +1,12 @@
 package com.photochecker.model.nst;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Created by market6 on 20.06.2017.
+ */
 public class NstClientCriterias {
-
-    private int id;
     private int clientId;
     private LocalDate dateFrom;
     private LocalDate dateTo;

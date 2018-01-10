@@ -1,11 +1,15 @@
 package com.photochecker.model.nst;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+/**
+ * Created by market6 on 20.06.2017.
+ */
+@Entity
+@Table(name = "nst_client_card")
 public class NstClientCard {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private NstObl nstObl;

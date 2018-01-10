@@ -49,7 +49,7 @@ public class RegionDaoSpringImpl implements RegionDao {
     }
 
     private RowMapper<Region> regionRowMapper = (resultSet, i) -> {
-        return new Region(
+        return new Region(resultSet.getInt("region_id"),
                 resultSet.getString("region_name").trim());
     };
 
@@ -68,7 +68,8 @@ public class RegionDaoSpringImpl implements RegionDao {
 
     @Override
     public List<Region> findAll() {
-        return jdbcTemplate.query(SQL_FIND_ALL, regionRowMapper);
+        List<Region> rl=jdbcTemplate.query(SQL_FIND_ALL, regionRowMapper);
+        return rl;
     }
 
     @Override

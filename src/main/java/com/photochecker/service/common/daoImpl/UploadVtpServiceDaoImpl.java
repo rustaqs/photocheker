@@ -25,7 +25,7 @@ public class UploadVtpServiceDaoImpl implements UploadVtpService {
             e.printStackTrace();
         }
 
-        return "Загрузил, отдыхай!";
+        return "Загрузил!";
     }
 
     private int readLkaDatas(BufferedReader reader) {

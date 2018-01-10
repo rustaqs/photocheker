@@ -3,7 +3,6 @@ package com.photochecker.dao.common;
 import com.photochecker.dao.GenericDao;
 import com.photochecker.model.common.Region;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 

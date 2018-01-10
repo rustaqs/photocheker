@@ -1,8 +1,6 @@
 package com.photochecker.model.nka;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
 import java.util.List;
 
 public class NkaRjkamReportItem {

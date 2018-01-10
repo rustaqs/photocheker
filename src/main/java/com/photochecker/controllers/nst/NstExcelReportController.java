@@ -20,12 +20,7 @@ public class NstExcelReportController {
     @Autowired
     private NstExcelReportService nstExcelReportService;
 
-    /**
-	 *
-	 * @param request
-	 * @param response
-	 */
-	@GetMapping("/reports/nst/getExcelReport")
+    @GetMapping(value = "/reports/nst/getExcelReport")
     public void getNstExcelReport (HttpServletRequest request,
                                 HttpServletResponse response) {
 

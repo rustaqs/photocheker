@@ -8,6 +8,8 @@
     color: red;
     font-size: 16px;
 }
+.open{width:250px}
+
 .rep{
     display: none;
 }

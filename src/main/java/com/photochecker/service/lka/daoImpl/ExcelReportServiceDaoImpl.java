@@ -10,7 +10,6 @@ import org.jxls.common.Context;
 import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
@@ -49,7 +48,7 @@ public class ExcelReportServiceDaoImpl implements ExcelReportService {
 
 
 
-        File file = new File(servletContext.getRealPath("/resources/excelTemplates/lka_template.xlsx"));
+        File file = new File(servletContext.getRealPath("/WEB-INF/classes/static/excelTemplates/lka_template.xlsx"));
 
         try (InputStream is = new FileInputStream(file)) {
 

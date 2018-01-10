@@ -16,7 +16,7 @@
 <body>
 <div id="head_pane">
     <div class="report_title">
-        <a href="/" style="border: 0;">Главная</a> /
+        <a href="/selPath" style="border: 0;">Главная</a> /
     </div>
     <div id="filter_pane">
         <div id="logoff_pane">

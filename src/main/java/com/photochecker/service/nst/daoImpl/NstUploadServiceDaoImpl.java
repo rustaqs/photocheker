@@ -7,7 +7,6 @@ import com.photochecker.model.nst.*;
 import com.photochecker.service.nst.NstUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
 import java.io.*;
@@ -17,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 
-@Service
+@Component
 public class NstUploadServiceDaoImpl implements NstUploadService {
     @Autowired
     private NstClientCardDao nstClientCardDao;
@@ -54,9 +53,6 @@ public class NstUploadServiceDaoImpl implements NstUploadService {
 
         LocalDate dateFrom = LocalDate.parse(dateFromS, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         LocalDate dateTo = LocalDate.parse(dateToS, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
-
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String photoTableName = dateFrom.format(formatter) + "_" + dateTo.format(formatter) + "_nst_photo";
 
@@ -78,7 +74,7 @@ public class NstUploadServiceDaoImpl implements NstUploadService {
             properties.setProperty("nst.current.week.photo", photoTableName);
             properties.setProperty("nst.current.week.save", saveTableName);
 
-            File file = new File(servletContext.getRealPath("/resources/properties/prop.properties"));
+            File file = new File(servletContext.getRealPath("/WEB-INF/classes/static/properties/prop.properties"));
             try (OutputStream outputStream = new FileOutputStream(file)) {
                 properties.store(outputStream, null);
             } catch (IOException e) {

@@ -10,7 +10,6 @@ import org.jxls.common.Context;
 import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
@@ -44,7 +43,7 @@ public class NkaExcelReportServiceDaoImpl implements NkaExcelReportService {
             nkaRjkamReportItemList.add(new NkaRjkamReportItem(employee.getId(), employee.getName(), nkaReportItems));
         }
 
-        File file = new File(servletContext.getRealPath("/resources/excelTemplates/rjkam_template.xlsm"));
+        File file = new File(servletContext.getRealPath("/WEB-INF/classes/static/excelTemplates/rjkam_template.xlsm"));
 
         try (InputStream is = new FileInputStream(file)) {
             Context context = PoiTransformer.createInitialContext();

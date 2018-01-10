@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.Date;
@@ -22,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-@Transactional
-@Repository
+@Component
 public class NstClientCardDaoSpringImpl implements NstClientCardDao {
 
     private final String SQL_FIND_ALL = "SELECT cc.*, 0 AS checked FROM `nst_client_card` cc";

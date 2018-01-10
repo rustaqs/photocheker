@@ -22,8 +22,6 @@ public class LkaMaClientCriteriasController {
 
     @Autowired
     private LkaMaClientCriteriasService lkaMaClientCriteriasService;
-
-
     /**
 	 *
 	 * @param dateFromS
@@ -40,8 +38,6 @@ public class LkaMaClientCriteriasController {
         LocalDate dateTo = LocalDate.parse(dateToS);
         return lkaMaClientCriteriasService.getSavedCriterias(clientId, dateFrom, dateTo);
     }
-
-
     /**
 	 *
 	 * @param lkaMaClientCriteriasJson
