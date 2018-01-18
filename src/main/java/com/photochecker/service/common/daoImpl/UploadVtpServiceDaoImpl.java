@@ -20,7 +20,7 @@ public class UploadVtpServiceDaoImpl implements UploadVtpService {
         try {
             String record = reader.readLine();
 
-                readLkaDatas(reader);
+            readLkaDatas(reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class UploadVtpServiceDaoImpl implements UploadVtpService {
         String record;
         clientCardVtpDao.remove();
         try {
-            while ((record = reader.readLine())!=null) {
+            while ((record = reader.readLine()) != null) {
 
                 String[] recordParts = record.split("; ");
                 ClientCardVtp clientCardVtp = new ClientCardVtp(
@@ -52,8 +52,10 @@ public class UploadVtpServiceDaoImpl implements UploadVtpService {
                         Integer.parseInt(recordParts[10]),
                         recordParts[11],
                         recordParts[12],
-                        Integer.parseInt(recordParts[13])
-                        );
+                        Integer.parseInt(recordParts[13]),
+                        recordParts[14],
+                        recordParts[15]
+                );
 
                 clientCardVtpDao.save(clientCardVtp);
 

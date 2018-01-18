@@ -36,8 +36,8 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
     private final String SQL_SavAns = "INSERT INTO `answer` (`id`, `answer`, `creation_time`, `nameauditor`, `namevtp`, `question`, `time`, `type`,`vizNum`, `stage`, `tema`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     //language=SQL
     private final String SQL_SAVE = "INSERT INTO `client_card_vtp`\n" +
-            "(`id`,`region_id`,`region`,`city`, `distr`, `client_name`,`client_id`,`client_address`,`fio`,`kanal`,`type`,`distr_id`,`job`, `sector_name`,`sector_id`)\n" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            "(`id`,`region_id`,`region`,`city`, `distr`, `client_name`,`client_id`,`client_address`,`fio`,`kanal`,`type`,`distr_id`,`job`, `sector_name`,`sector_id`, `fiores`, `abbr2`)\n" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     //language=SQL
     private final String SQL_TEMA = "select distinct case when a.question='Темы следующего обучения:' then a.answer else a.tema end answer, f.vizNum, left(f.creation_time,10) creation_time\n" +
@@ -134,7 +134,9 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
                 resultSet.getInt("distr_id"),
                 resultSet.getString("job"),
                 resultSet.getString("sector_name"),
-                resultSet.getInt("sector_id"));
+                resultSet.getInt("sector_id"),
+                resultSet.getString("fiores"),
+                resultSet.getString("abbr2"));
         return clientCardVtp;
     };
 
@@ -190,7 +192,9 @@ public class ClientCardVtpDaoSpringImpl implements ClientCardVtpDao {
                 clientCardVtp.getDist_id(),
                 clientCardVtp.getJob(),
                 clientCardVtp.getSector_name(),
-                clientCardVtp.getSector_id());
+                clientCardVtp.getSector_id(),
+                clientCardVtp.getFiores(),
+                clientCardVtp.getAbbr2());
     }
 
     @Override

@@ -22,8 +22,13 @@ public class ClientCardVtp {
     private String job;
     private String sector_name;
     private int sector_id;
+    private String fiores;
+    private String abbr2;
 
-    public ClientCardVtp(int region_id, String region, String city, String distr, String client_name, int client_id, String client_address, String fio, String kanal, String type, int dist_id, String job, String sector_name, int sector_id) {
+    public ClientCardVtp() {
+    }
+
+    public ClientCardVtp(int region_id, String region, String city, String distr, String client_name, int client_id, String client_address, String fio, String kanal, String type, int dist_id, String job, String sector_name, int sector_id, String fiores, String abbr2) {
         this.region_id = region_id;
         this.region = region;
         this.city = city;
@@ -38,6 +43,8 @@ public class ClientCardVtp {
         this.job = job;
         this.sector_name = sector_name;
         this.sector_id = sector_id;
+        this.fiores = fiores;
+        this.abbr2 = abbr2;
     }
 
     public int getId() {
@@ -160,25 +167,20 @@ public class ClientCardVtp {
         this.sector_id = sector_id;
     }
 
-    @Override
-    public String toString() {
-        return "ClientCardVtp{" +
-                "id=" + id +
-                ", region_id=" + region_id +
-                ", region='" + region + '\'' +
-                ", city='" + city + '\'' +
-                ", distr='" + distr + '\'' +
-                ", client_name='" + client_name + '\'' +
-                ", client_id=" + client_id +
-                ", client_address='" + client_address + '\'' +
-                ", fio='" + fio + '\'' +
-                ", kanal='" + kanal + '\'' +
-                ", type='" + type + '\'' +
-                ", dist_id=" + dist_id +
-                ", job='" + job + '\'' +
-                ", sector_name='" + sector_name + '\'' +
-                ", sector_id=" + sector_id +
-                '}';
+    public String getFiores() {
+        return fiores;
+    }
+
+    public void setFiores(String fiores) {
+        this.fiores = fiores;
+    }
+
+    public String getAbbr2() {
+        return abbr2;
+    }
+
+    public void setAbbr2(String abbr2) {
+        this.abbr2 = abbr2;
     }
 
     @Override
